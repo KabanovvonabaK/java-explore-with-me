@@ -8,11 +8,13 @@ import ru.practicum.EndpointHitDto;
 import ru.practicum.StatsDto;
 import ru.practicum.model.EndpointHit;
 import ru.practicum.model.mapper.EndpointHitMapper;
+import ru.practicum.model.mapper.StatsMapper;
 import ru.practicum.repository.StatsRepository;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,15 +36,19 @@ public class StatsService {
         }
         if ((uris == null || uris.isEmpty())) {
             if (unique) {
-                return statsRepository.findAllUniqueStats(start, end);
+                return statsRepository.findAllUniqueStats(start, end)
+                        .stream().map(StatsMapper::toStatsDto).collect(Collectors.toList());
             } else {
-                return statsRepository.findAllStats(start, end);
+                return statsRepository.findAllStats(start, end)
+                        .stream().map(StatsMapper::toStatsDto).collect(Collectors.toList());
             }
         } else {
             if (unique) {
-                return statsRepository.findAllUniqueStatsByUris(start, end, uris);
+                return statsRepository.findAllUniqueStatsByUris(start, end, uris)
+                        .stream().map(StatsMapper::toStatsDto).collect(Collectors.toList());
             } else {
-                return statsRepository.findAllStatsByUris(start, end, uris);
+                return statsRepository.findAllStatsByUris(start, end, uris)
+                        .stream().map(StatsMapper::toStatsDto).collect(Collectors.toList());
             }
         }
     }

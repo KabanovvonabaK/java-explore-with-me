@@ -5,9 +5,6 @@
 	<modules>
 		<module>ewm-service</module>
 		<module>stats-service</module>
-		<module>stats-service/stats-client</module>
-		<module>stats-service/stats-model</module>
-		<module>stats-service/stats-server</module>
 	</modules>
 
 	<parent>
@@ -64,7 +61,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -234,5 +231,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>

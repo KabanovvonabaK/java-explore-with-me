@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Builder
-public class RequestUpdateResult{
+public class RequestUpdateResult {
     private List<RequestDto> confirmedRequests;
     private List<RequestDto> rejectedRequests;
 }

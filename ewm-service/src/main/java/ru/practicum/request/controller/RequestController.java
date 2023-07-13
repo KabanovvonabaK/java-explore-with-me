@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.request.dto.RequestDto;
-import ru.practicum.request.model.RequestUpdateResult;
 import ru.practicum.request.dto.UpdateRequestDto;
+import ru.practicum.request.model.RequestUpdateResult;
 import ru.practicum.request.service.RequestService;
 
 import javax.validation.Valid;

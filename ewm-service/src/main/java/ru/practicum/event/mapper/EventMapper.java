@@ -1,18 +1,15 @@
 package ru.practicum.event.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Service;
-import ru.practicum.category.model.Category;
-import ru.practicum.utils.adapters.DateTimeAdapter;
 import ru.practicum.category.mapper.CategoryMapper;
-import ru.practicum.event.model.Event;
+import ru.practicum.category.model.Category;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.EventShortDto;
+import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
 import ru.practicum.user.mapper.UserMapper;
-import ru.practicum.category.service.CategoryService;
+import ru.practicum.utils.adapters.DateTimeAdapter;
 
 @UtilityClass
 public class EventMapper {

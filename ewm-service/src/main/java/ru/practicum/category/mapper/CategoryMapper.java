@@ -1,9 +1,8 @@
 package ru.practicum.category.mapper;
 
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Service;
-import ru.practicum.category.model.Category;
 import ru.practicum.category.dto.CategoryDto;
+import ru.practicum.category.model.Category;
 
 @UtilityClass
 public class CategoryMapper {

@@ -29,8 +29,10 @@ public interface EventService {
     EventFullDto updateEventByAdmin(UpdateEventDto updateEventDto, int eventId);
 
     void updateEventRequest(Event event);
+
     void updateEventRequest(List<Event> eventList);
 
     Event findEventById(int eventId);
+    
     void findEventsByIds(List<Integer> events);
 }

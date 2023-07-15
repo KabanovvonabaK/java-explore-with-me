@@ -10,6 +10,7 @@ import ru.practicum.event.service.EventService;
 import ru.practicum.utils.validation.Update;
 
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Slf4j
@@ -26,7 +27,7 @@ public class EventControllerAdmin {
                                      @RequestParam(required = false) List<Integer> categories,
                                      @RequestParam(value = "rangeStart", defaultValue = "no date") String rangeStart,
                                      @RequestParam(value = "rangeEnd", defaultValue = "no date") String rangeEnd,
-                                     @RequestParam(value = "from", defaultValue = "0") Integer from,
+                                     @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
                                      @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
         log.info("EventControllerAdmin.class getAll()");
         return service.getEventsForAdmin(users, states, categories, rangeStart, rangeEnd, from, size);

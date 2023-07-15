@@ -206,11 +206,11 @@ public class EventServiceImpl implements EventService {
 
     private PageRequest createPageable(Integer from, Integer size, String sort) {
         if (sort == null || sort.isEmpty()) {
-            return PageRequest.of(from / size, size);
+            return PageRequest.of(from / size, size, Sort.by("views").descending());
         }
         switch (sort) {
             case "EVENT_DATE":
-                return PageRequest.of(from / size, size, Sort.by("eventDate"));
+                return PageRequest.of(from / size, size, Sort.by("eventDate").descending());
             case "VIEWS":
                 return PageRequest.of(from / size, size, Sort.by("views").descending());
             default:

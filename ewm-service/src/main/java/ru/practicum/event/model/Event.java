@@ -1,9 +1,6 @@
 package ru.practicum.event.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.category.model.Category;
 import ru.practicum.enums.EventState;
 import ru.practicum.user.model.User;
@@ -11,7 +8,8 @@ import ru.practicum.user.model.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder

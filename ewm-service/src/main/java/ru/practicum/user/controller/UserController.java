@@ -3,14 +3,16 @@ package ru.practicum.user.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.service.UserService;
+import ru.practicum.utils.validation.Create;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/admin/users")
@@ -19,7 +21,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto create(@Valid @RequestBody UserDto userDto) {
+    public UserDto create(@Validated(Create.class) @RequestBody UserDto userDto) {
         log.info("UserController.class create() with {}", userDto);
         return service.create(userDto);
     }

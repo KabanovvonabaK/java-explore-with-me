@@ -33,6 +33,14 @@ public class EventControllerPrivate {
         return eventService.create(eventDto, userId);
     }
 
+    @PatchMapping("/{eventId}")
+    public EventFullDto updateEventByUser(@Validated(Update.class) @RequestBody UpdateEventDto updateEventDto,
+                                          @PathVariable int userId,
+                                          @PathVariable int eventId) {
+        log.info("EventControllerPrivate.class updateEventByUser() eventId{} with {}", eventId, updateEventDto);
+        return eventService.updateEventByUser(updateEventDto, userId, eventId);
+    }
+
     @GetMapping
     public List<EventShortDto> getUserEvents(@PathVariable int userId,
                                              @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
@@ -46,13 +54,5 @@ public class EventControllerPrivate {
                                          @PathVariable int eventId) {
         log.info("EventControllerPrivate.class getUserEventById() userId {} eventId {}", userId, eventId);
         return eventService.getUserEventById(userId, eventId);
-    }
-
-    @PatchMapping("/{eventId}")
-    public EventFullDto updateEventByUser(@Validated(Update.class) @RequestBody UpdateEventDto updateEventDto,
-                                          @PathVariable int userId,
-                                          @PathVariable int eventId) {
-        log.info("EventControllerPrivate.class updateEventByUser() eventId{} with {}", eventId, updateEventDto);
-        return eventService.updateEventByUser(updateEventDto, userId, eventId);
     }
 }

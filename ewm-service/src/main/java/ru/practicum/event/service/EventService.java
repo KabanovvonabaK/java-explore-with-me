@@ -32,7 +32,7 @@ public interface EventService {
 
     void updateEventRequest(List<Event> eventList);
 
-    Event findEventById(int eventId);
-    
     void findEventsByIds(List<Integer> events);
+
+    Event findEventById(int eventId);
 }

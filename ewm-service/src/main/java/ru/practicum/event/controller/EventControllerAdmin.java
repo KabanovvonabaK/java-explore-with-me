@@ -10,7 +10,6 @@ import ru.practicum.event.service.EventService;
 import ru.practicum.utils.validation.Update;
 
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Slf4j

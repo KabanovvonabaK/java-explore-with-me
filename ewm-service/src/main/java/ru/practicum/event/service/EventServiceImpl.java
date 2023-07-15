@@ -205,9 +205,6 @@ public class EventServiceImpl implements EventService {
     }
 
     private PageRequest createPageable(Integer from, Integer size, String sort) {
-        if (from < 0 || size <= 0) {
-            throw new BadRequestException("the from parameter must be greater than or equal to 0; size is greater than 0");
-        }
         if (sort == null || sort.isEmpty()) {
             return PageRequest.of(from / size, size);
         }

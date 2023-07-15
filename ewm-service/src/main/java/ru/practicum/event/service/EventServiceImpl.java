@@ -35,10 +35,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -105,7 +102,11 @@ public class EventServiceImpl implements EventService {
         PageRequest pageable = createPageable(from, size, null);
         Page<Event> eventPage = createRequestAdmin(users, states, categories, rangeStart, rangeEnd, pageable);
         Set<Event> eventsSet = eventPage.stream().collect(Collectors.toSet());
-        return eventsSet.stream().map(EventMapper::objectToFullDto).collect(Collectors.toList());
+        return eventsSet
+                .stream()
+                .map(EventMapper::objectToFullDto)
+                .sorted((Comparator.comparing(EventFullDto::getId)))
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

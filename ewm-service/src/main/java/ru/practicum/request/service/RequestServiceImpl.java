@@ -112,7 +112,6 @@ public class RequestServiceImpl implements RequestService {
         List<Request> requests = repository.findAll();
         List<Request> requestsToSave = new ArrayList<>();
         List<Event> eventsToUpdate = new ArrayList<>();
-        List<Request> canceledRequestsToSave = new ArrayList<>();
         for (Integer requestId : dto.getRequestIds()) {
             Request request = checkRequestExistInRequestList(requests, requestId);
             if (!request.getStatus().equals(RequestState.PENDING)) {
@@ -120,12 +119,8 @@ public class RequestServiceImpl implements RequestService {
             }
             switch (dto.getStatus()) {
                 case CONFIRMED:
-                    if (event.getParticipantLimit() != 0 && event.getParticipantLimit().equals(event.getConfirmedRequests())) {
-                        List<Request> canceledRequests = repository.findAllByEventIdAndStatus(event.getId(), RequestState.PENDING)
-                                .stream()
-                                .peek(r -> r.setStatus(RequestState.CANCELED))
-                                .collect(Collectors.toList());
-                        canceledRequestsToSave.addAll(canceledRequests);
+                    if (event.getParticipantLimit() != 0
+                            && event.getParticipantLimit().equals(event.getConfirmedRequests())) {
                         throw new ConflictException("Limit of applications for this event has already been exhausted.");
                     }
                     request.setStatus(RequestState.CONFIRMED);
@@ -148,9 +143,6 @@ public class RequestServiceImpl implements RequestService {
                 default:
                     throw new BadRequestException("Unexpected case in RequestService.class requestProcessing()");
             }
-        }
-        if (!canceledRequestsToSave.isEmpty()) {
-            repository.saveAll(canceledRequestsToSave);
         }
         if (!requestsToSave.isEmpty()) {
             repository.saveAll(requestsToSave);

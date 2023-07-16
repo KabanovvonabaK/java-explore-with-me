@@ -58,9 +58,9 @@ public class ErrorHandler {
         return new ErrorResponse("Object already exist " + e.getMessage());
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleRemainingErrors(final RuntimeException e) {
+    public ErrorResponse handleRemainingErrors(final Throwable e) {
         for (StackTraceElement ste : e.getStackTrace()) {
             log.error(ste.toString());
         }

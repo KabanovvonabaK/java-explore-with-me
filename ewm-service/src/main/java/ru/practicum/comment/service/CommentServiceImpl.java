@@ -15,8 +15,6 @@ import ru.practicum.enums.EventState;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.service.EventService;
 import ru.practicum.exceptions.ConflictException;
-import ru.practicum.user.dto.UserDto;
-import ru.practicum.user.mapper.UserMapper;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.UserService;
 

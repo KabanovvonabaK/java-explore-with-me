@@ -230,7 +230,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Explore-User-Id",
+						"value": "{{userId}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"eventId\":{{eventId}},\r\n    \"text\": \"Comment - {{$randomInt}}\"\r\n}",
@@ -241,22 +247,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/comments/user/:userId",
+					"raw": "http://localhost:8080/comments",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"comments",
-						"user",
-						":userId}"
-					],
-					"variable": [
-						{
-							"key": "userId}",
-							"value": "{{userId}}"
-						}
+						"comments"
 					]
 				}
 			},
@@ -290,7 +288,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Explore-User-Id",
+						"value": "{{userId}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"eventId\":{{eventId}},\r\n    \"text\": \"   \"\r\n}",
@@ -301,20 +305,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/comments/user/:userId",
+					"raw": "{{baseUrl}}/comments",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"comments",
-						"user",
-						":userId"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "{{userId}}"
-						}
+						"comments"
 					]
 				}
 			},
@@ -566,24 +562,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/comments/:comId/user/:userId",
+					"raw": "{{baseUrl}}/comments/:comId",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"comments",
-						":comId",
-						"user",
-						":userId"
+						":comId"
 					],
 					"variable": [
 						{
 							"key": "comId",
 							"value": "{{comId}}"
-						},
-						{
-							"key": "userId",
-							"value": "{{userId}}"
 						}
 					]
 				}
@@ -726,24 +716,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/comments/:comId/user/:userId",
+					"raw": "{{baseUrl}}/comments/:comId",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"comments",
-						":comId",
-						"user",
-						":userId"
+						":comId"
 					],
 					"variable": [
 						{
 							"key": "comId",
 							"value": "{{comId}}"
-						},
-						{
-							"key": "userId",
-							"value": "{{userId}}"
 						}
 					]
 				}
@@ -789,7 +773,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Explore-User-Id",
+						"value": "{{userId}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n\"text\": \"Текст для создания повторного комментария. {{$randomInt}}\",\r\n\"eventId\":{{eventId}}\r\n}",
@@ -805,15 +795,7 @@
 						"{{baseUrl}}"
 					],
 					"path": [
-						"comments",
-						"user",
-						":userId"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "{{userId}}"
-						}
+						"comments"
 					]
 				}
 			},
@@ -905,24 +887,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/comments/:comId/user/:userId",
+					"raw": "{{baseUrl}}/comments/:comId",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"comments",
-						":comId",
-						"user",
-						":userId"
+						":comId"
 					],
 					"variable": [
 						{
 							"key": "comId",
 							"value": "{{comId}}"
-						},
-						{
-							"key": "userId",
-							"value": "{{userId}}"
 						}
 					]
 				}

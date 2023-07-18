@@ -13,30 +13,21 @@ import ru.practicum.utils.validation.Update;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.List;
 
 @Slf4j
 @Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comments")
-public class CommentUserController {
+public class CommentUserControllerPrivate {
     private final CommentService commentService;
 
-    @PostMapping("/user/{userId}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CommentForView add(@Positive @PathVariable("userId") int userId,
+    public CommentForView add(@Positive @RequestHeader("X-Explore-User-Id") int userId,
                               @Validated(Create.class) @RequestBody CommentUserDto commentUserDto) {
         log.info("CommentUserController.class add() userId {} with {}", userId, commentUserDto);
         return commentService.add(userId, commentUserDto);
-    }
-
-    @GetMapping("/{comId}/user/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public CommentForView findByIdForUser(@Positive @PathVariable("userId") int userId,
-                                          @Positive @PathVariable("comId") int comId) {
-        log.info("CommentUserController.class findByIdForUser() userId {} comId {}", userId, comId);
-        return commentService.getCommentById(userId, comId);
     }
 
     @PatchMapping("/{comId}/user/{userId}")
@@ -55,14 +46,5 @@ public class CommentUserController {
                        @PositiveOrZero @PathVariable int userId) {
         log.info("CommentUserController.class delete() userId {} commId {}", userId, comId);
         commentService.deleteCommentByUser(comId, userId);
-    }
-
-    @GetMapping("/event/{eventId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CommentForView> getAllCommentEvent(@PositiveOrZero @PathVariable int eventId,
-                                                   @PositiveOrZero @RequestParam(defaultValue = "0") int from,
-                                                   @Positive @RequestParam(defaultValue = "10") int size) {
-        log.info("CommentUserController.class getAllCommentEvent()");
-        return commentService.getCommentsForEvent(eventId, from, size);
     }
 }

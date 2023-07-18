@@ -78,6 +78,15 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
+    @ExceptionHandler(UnpublishedEventException.class)
+    @ResponseStatus(HttpStatus.LOCKED)
+    public ErrorResponse handleUnpublishedEventException(final UnpublishedEventException e) {
+        for (StackTraceElement ste : e.getStackTrace()) {
+            log.error(ste.toString());
+        }
+        return new ErrorResponse(e.getMessage());
+    }
+
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleRemainingErrors(final Throwable e) {

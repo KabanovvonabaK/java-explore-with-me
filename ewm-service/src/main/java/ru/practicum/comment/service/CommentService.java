@@ -11,7 +11,7 @@ public interface CommentService {
 
     CommentForView update(int comId, int userId, CommentUserDto inputCommentDto);
 
-    CommentForView getCommentById(int userId, int comId);
+    CommentForView getCommentById(int comId);
 
     void deleteCommentByUser(int comId, int userId);
 

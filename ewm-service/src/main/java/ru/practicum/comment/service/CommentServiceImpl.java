@@ -15,11 +15,11 @@ import ru.practicum.enums.EventState;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.service.EventService;
 import ru.practicum.exceptions.ConflictException;
+import ru.practicum.exceptions.UnpublishedEventException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -40,15 +40,8 @@ public class CommentServiceImpl implements CommentService {
         User userFromDb = userService.findUserById(userId);
         Event eventFromDb = eventService.findEventById(inputCommentDto.getEventId());
 
-        if (!eventFromDb.getStatus().equals(EventState.PUBLISHED)) {
-            if (eventFromDb.getInitiator().getId().equals(userId)) {
-                Comment comment = CommentMapper.toComment(inputCommentDto, eventFromDb, userFromDb);
-                comment.setCreatedOn(LocalDateTime.now());
-                Comment result = commentRepository.save(comment);
-                return CommentMapper.toView(result);
-            } else {
-                throw new ConflictException("Impossible to create comment to unpublished event");
-            }
+        if (eventFromDb.getStatus().equals(EventState.PUBLISHED)) {
+            throw new UnpublishedEventException("Impossible to create comment to unpublished event");
         }
 
         Comment comment = CommentMapper.toComment(inputCommentDto, eventFromDb, userFromDb);
@@ -58,19 +51,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentForView getCommentById(int userId, int comId) {
-        log.info("CommentServiceImpl.class getCommentById() userId {} comId {}", userId, comId);
-        userService.findUserById(userId);
+    public CommentForView getCommentById(int comId) {
+        log.info("CommentServiceImpl.class getCommentById() comId {}", comId);
         Comment commentFromDb = getCommentOrThrow(comId);
-        Event eventFromDb = eventService.findEventById(commentFromDb.getEvent().getId());
-
-        if (!eventFromDb.getStatus().equals(EventState.PUBLISHED)) {
-            if (eventFromDb.getInitiator().getId().equals(userId)) {
-                return CommentMapper.toView(commentFromDb);
-            } else {
-                throw new ConflictException("Impossible to create comment to unpublished event");
-            }
-        }
         return CommentMapper.toView(commentFromDb);
     }
 
@@ -99,9 +82,6 @@ public class CommentServiceImpl implements CommentService {
         userService.findUserById(userId);
         Comment commentFromDb = getCommentOrThrow(comId);
         checkAuthorCommentOrThrow(userId, commentFromDb);
-        if (commentFromDb.getCreatedOn().isBefore(LocalDateTime.now().minusHours(2))) {
-            throw new DateTimeException("Impossible to update comment after 2 hours after publishing");
-        }
         Comment comment = updateFieldsByUser(inputCommentDto, commentFromDb);
         Comment result = commentRepository.save(comment);
         return CommentMapper.toView(result);
